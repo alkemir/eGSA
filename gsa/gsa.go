@@ -3,12 +3,6 @@ package gsa
 // ResultIndex is used as the return type for Search
 type ResultIndex int32
 
-// GeneralizedSuffixArray supports operations for a GSA
-type GeneralizedSuffixArray interface {
-	Searcher
-	Builder
-}
-
 // Searcher can be searched for a substring, returning a list of strings
 // where the substring is found.
 type Searcher interface {

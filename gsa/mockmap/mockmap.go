@@ -16,7 +16,7 @@ type store struct {
 }
 
 // New returns a new GSA mockup based on a map
-func New() gsa.GeneralizedSuffixArray {
+func New() gsa.Builder {
 	return &store{m: make(map[string][]gsa.ResultIndex)}
 }
 

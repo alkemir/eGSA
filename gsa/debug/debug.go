@@ -1,16 +1,14 @@
-package gsa_test
+package main
 
 import (
-	"testing"
+	"fmt"
 
 	"github.com/alkemir/eGSA/gsa"
-	"github.com/alkemir/eGSA/gsa/brute"
-	"github.com/alkemir/eGSA/gsa/bruteradix"
-	"github.com/alkemir/eGSA/gsa/mockmap"
 	"github.com/alkemir/eGSA/gsa/plcp"
 )
 
 var testStrings = []string{
+	"acaaacatat",
 	"Llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch",
 	"banana",
 	"anana",
@@ -26,7 +24,11 @@ var searchStrings = []struct {
 	{"na", []gsa.ResultIndex{1, 2, 3, 4}},
 }
 
-func testImpl(t *testing.T, g gsa.Builder) {
+func main() {
+	testImpl(plcp.New())
+}
+
+func testImpl(g gsa.Builder) {
 
 	for i, ts := range testStrings {
 		g.Add(ts, gsa.ResultIndex(i))
@@ -45,28 +47,8 @@ func testImpl(t *testing.T, g gsa.Builder) {
 			}
 
 			if !found {
-				t.Fatalf("%v not found in result for Search(%s): %v", expected, ts.str, rr)
+				fmt.Printf("%v not found in result for Search(%s): %v\n", expected, ts.str, rr)
 			}
 		}
 	}
-}
-
-func TestMockmap(t *testing.T) {
-	g := mockmap.New()
-	testImpl(t, g)
-}
-
-func TestBrute(t *testing.T) {
-	g := brute.New()
-	testImpl(t, g)
-}
-
-func TestRadix(t *testing.T) {
-	g := bruteradix.New()
-	testImpl(t, g)
-}
-
-func TestLCP(t *testing.T) {
-	g := plcp.New()
-	testImpl(t, g)
 }
